@@ -77,6 +77,11 @@ public final class DefaultDiceExpressionBuilder extends DiceNotationParserBaseLi
      */
     private static final String                 SUBTRACTION_OPERATOR    = "-";
 
+    private static final String                 KEEP_OPERATOR           = "k";
+    private static final String                 DROP_OPERATOR           = "d";
+    private static final String                 HIGH_OPERATOR           = "h";
+    private static final String                 LOW_OPERATOR           = "l";
+
     /**
      * Stack to store objects as they are parsed. The last object left inside it will be the root of the parsed tree.
      */
@@ -239,6 +244,7 @@ public final class DefaultDiceExpressionBuilder extends DiceNotationParserBaseLi
         final Dice                   dice;     // Parsed dice
         final Integer                quantity; // Number of dice
         final Integer                sides;    // Number of sides
+        Integer                      keep = 0;     // Number of dice to keep
         final Iterator<TerminalNode> digits;   // Parsed digits
         final long                   size;     // Size of the digit list
 
@@ -272,8 +278,22 @@ public final class DefaultDiceExpressionBuilder extends DiceNotationParserBaseLi
         sides = Integer.parseInt(digits.next()
             .getText());
 
+        if (ctx.KEEPDROP() != null) {
+            keep = Integer.parseInt(digits.next().getText());
+            if (DROP_OPERATOR.equals(String.valueOf(ctx.KEEPDROP().getText().charAt(0)))) {
+                keep = (quantity - keep) * -1;
+            }
+            if (LOW_OPERATOR.equals(String.valueOf(ctx.KEEPDROP().getText().charAt(1)))) {
+                keep *= -1;
+            }
+        }
+
+        /** dl3 = kh1 -> 1
+         *  dh3 = kl1 -> -1
+         */
+
         // Creates the dice
-        dice = new DefaultDice(quantity, sides);
+        dice = new DefaultDice(quantity, sides, keep);
 
         return new DefaultDiceOperand(dice);
     }

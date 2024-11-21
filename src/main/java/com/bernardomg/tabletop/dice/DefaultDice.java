@@ -46,4 +46,9 @@ public final class DefaultDice implements Dice {
     @NonNull
     private final Integer sides;
 
+    /**
+     * Number of dice to keep.
+     */
+    @NonNull
+    private final Integer keep;
 }

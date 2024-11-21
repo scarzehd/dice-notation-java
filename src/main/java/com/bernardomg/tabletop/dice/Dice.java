@@ -52,4 +52,10 @@ public interface Dice {
      */
     public Integer getSides();
 
+
+    /**
+     * Returns the number of dice to keep. Positive values means the highest should be kept; negative values means the lowest should be kept. Zero means keep all dice.
+     * @return the number of dice to keep
+     */
+    public Integer getKeep();
 }
