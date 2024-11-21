@@ -95,7 +95,7 @@ public final class DiceAccumulator implements NotationAccumulator<Iterable<Dice>
      * @return dice with the sign reversed
      */
     private final Dice reverse(final Dice d) {
-        return new DefaultDice(0 - d.getQuantity(), d.getSides());
+        return new DefaultDice(0 - d.getQuantity(), d.getSides(), d.getKeep());
     }
 
 }

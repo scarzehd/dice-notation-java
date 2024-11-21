@@ -47,6 +47,21 @@ MULTOPERATOR
    ( MULT | DIV )
 ;
 
+KEEPDROP
+:
+    KD HL
+;
+
+KD
+:
+    ( 'k' | 'd' )
+;
+
+HL
+:
+    ( 'h' | 'l' )
+;
+
 fragment ADD
 :
    '+'

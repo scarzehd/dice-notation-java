@@ -16,6 +16,9 @@
 
 package com.bernardomg.tabletop.dice.random;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -69,9 +72,32 @@ public final class DiceToRollResult implements Function<Dice, RollResult> {
 
         rolls = numberGenerator.generate(dice);
 
+        List<Integer> keep_list = new ArrayList<>();
+        rolls.forEach(keep_list::add);
+
+        if (dice.getKeep() != 0) {
+            List<Integer> sorted = new ArrayList<>();
+            rolls.forEach(sorted::add);
+            Collections.sort(sorted);
+
+            if (dice.getKeep() > 0) {
+                Collections.reverse(sorted);
+            }
+
+            int keep = Math.abs(dice.getKeep());
+
+            keep_list.clear();
+            for (int i = 0; i < keep; i++) {
+                keep_list.add(sorted.get(i));
+            }
+        }
+
         total = 0;
         for (final Integer roll : rolls) {
-            total += roll;
+            if (keep_list.contains(roll)) {
+                total += roll;
+                keep_list.remove(roll);
+            }
         }
 
         log.debug("Rolled {}", dice);
