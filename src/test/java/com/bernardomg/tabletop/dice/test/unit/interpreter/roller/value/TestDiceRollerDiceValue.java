@@ -59,6 +59,10 @@ public final class TestDiceRollerDiceValue {
         // Mocks generator
         when(generator.generate(dice)).thenReturn(Arrays.asList(1, 2, 3));
 
+        // Mocks dice
+        when(dice.getQuantity()).thenReturn(3);
+        when(dice.getKeep()).thenReturn(3);
+
         expression = new DefaultDiceOperand(dice);
 
         rolled = new DiceRoller(generator).transform(expression)
@@ -76,6 +80,10 @@ public final class TestDiceRollerDiceValue {
 
         // Mocks generator
         when(generator.generate(dice)).thenReturn(Arrays.asList(5));
+
+        // Mocks dice
+        when(dice.getQuantity()).thenReturn(1);
+        when(dice.getKeep()).thenReturn(1);
 
         expression = new DefaultDiceOperand(dice);
 
@@ -95,6 +103,7 @@ public final class TestDiceRollerDiceValue {
         // Mocks dice
         when(dice.getQuantity()).thenReturn(-1);
         when(dice.getSides()).thenReturn(1);
+        when(dice.getKeep()).thenReturn(-1);
 
         expression = new DefaultDiceOperand(dice);
 
@@ -167,6 +176,7 @@ public final class TestDiceRollerDiceValue {
         // Mocks dice
         when(dice.getQuantity()).thenReturn(1);
         when(dice.getSides()).thenReturn(1);
+        when(dice.getKeep()).thenReturn(1);
 
         expression = new DefaultDiceOperand(dice);
 

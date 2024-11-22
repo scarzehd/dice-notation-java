@@ -47,12 +47,15 @@ public final class TestDiceToRollResult {
     }
 
     @Test
-    @DisplayName("The total roll is enerated when there is a single value")
+    @DisplayName("The total roll is enerated when therea is a single value")
     public final void testApply_AddSingleValue() {
         final Integer rolled;
 
         // Mocks generator
         when(generator.generate(dice)).thenReturn(Arrays.asList(5));
+
+        // Mocks these values which are needed for keep/drop
+        when(dice.getKeep()).thenReturn(1);
 
         rolled = new DiceToRollResult(generator).apply(dice)
             .getTotalRoll();
@@ -69,6 +72,10 @@ public final class TestDiceToRollResult {
         // Mocks generator
         when(generator.generate(dice)).thenReturn(Arrays.asList(1, 2, 3));
 
+        // Mocks these values which are needed for keep/drop
+        when(dice.getKeep()).thenReturn(3);
+        when(dice.getQuantity()).thenReturn(3);
+
         rolled = new DiceToRollResult(generator).apply(dice)
             .getTotalRoll();
 
@@ -83,6 +90,10 @@ public final class TestDiceToRollResult {
 
         // Mocks generator
         when(generator.generate(dice)).thenReturn(Arrays.asList(1, 2));
+
+        // Mocks these values which are needed for keep/drop
+        when(dice.getKeep()).thenReturn(2);
+        when(dice.getQuantity()).thenReturn(2);
 
         rolled = new DiceToRollResult(generator).apply(dice)
             .getAllRolls()
@@ -102,6 +113,7 @@ public final class TestDiceToRollResult {
         // Mocks dice
         when(dice.getQuantity()).thenReturn(1);
         when(dice.getSides()).thenReturn(2);
+        when(dice.getKeep()).thenReturn(1);
 
         // Mocks generator
         when(generator.generate(dice)).thenReturn(Arrays.asList(5));

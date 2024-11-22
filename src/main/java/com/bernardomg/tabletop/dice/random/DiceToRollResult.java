@@ -73,38 +73,36 @@ public final class DiceToRollResult implements Function<Dice, RollResult> {
         rolls = numberGenerator.generate(dice);
 
         List<Integer> keep_list = new ArrayList<>();
-        rolls.forEach(keep_list::add);
 
-        if (dice.getKeep() != 0) {
-            List<Integer> sorted = new ArrayList<>();
-            rolls.forEach(sorted::add);
-            Collections.sort(sorted);
+        List<Integer> sorted = new ArrayList<>();
+        rolls.forEach(sorted::add);
+//        Collections.sort(sorted);
 
-            if (dice.getKeep() > 0) {
-                Collections.reverse(sorted);
-            }
+        if (dice.getKeep() > 0) {
+            Collections.reverse(sorted);
+        }
 
-            int keep = Math.abs(dice.getKeep());
+        int keep = Math.abs(dice.getKeep());
 
-            keep_list.clear();
-            for (int i = 0; i < keep; i++) {
-                keep_list.add(sorted.get(i));
-            }
+        if (keep > sorted.size()) {
+            keep = sorted.size();
+        }
+
+        for (int i = 0; i < keep; i++) {
+            keep_list.add(sorted.get(i));
         }
 
         total = 0;
-        for (final Integer roll : rolls) {
-            if (keep_list.contains(roll)) {
-                total += roll;
-                keep_list.remove(roll);
-            }
+
+        for (final Integer roll : keep_list) {
+            total += roll;
         }
 
         log.debug("Rolled {}", dice);
         log.debug("Generated rolls: {}", rolls);
         log.debug("Total roll: {}", total);
 
-        return new DefaultRollResult(dice, rolls, total);
+        return new DefaultRollResult(dice, keep_list, total);
     }
 
 }

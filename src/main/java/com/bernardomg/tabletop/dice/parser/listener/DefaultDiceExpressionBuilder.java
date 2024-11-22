@@ -278,8 +278,13 @@ public final class DefaultDiceExpressionBuilder extends DiceNotationParserBaseLi
         sides = Integer.parseInt(digits.next()
             .getText());
 
+        keep = quantity;
+
         if (ctx.KEEPDROP() != null) {
-            keep = Integer.parseInt(digits.next().getText());
+            if (digits.hasNext()) {
+                keep = Integer.parseInt(digits.next().getText());
+            }
+
             if (DROP_OPERATOR.equals(String.valueOf(ctx.KEEPDROP().getText().charAt(0)))) {
                 keep = (quantity - keep) * -1;
             }
@@ -287,10 +292,6 @@ public final class DefaultDiceExpressionBuilder extends DiceNotationParserBaseLi
                 keep *= -1;
             }
         }
-
-        /** dl3 = kh1 -> 1
-         *  dh3 = kl1 -> -1
-         */
 
         // Creates the dice
         dice = new DefaultDice(quantity, sides, keep);
