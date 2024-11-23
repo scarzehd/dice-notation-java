@@ -76,7 +76,7 @@ public final class DiceToRollResult implements Function<Dice, RollResult> {
 
         List<Integer> sorted = new ArrayList<>();
         rolls.forEach(sorted::add);
-//        Collections.sort(sorted);
+        Collections.sort(sorted);
 
         if (dice.getKeep() > 0) {
             Collections.reverse(sorted);
