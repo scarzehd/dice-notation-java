@@ -54,8 +54,13 @@ public interface Dice {
 
 
     /**
-     * Returns the number of dice to keep. Positive values means the highest should be kept; negative values means the lowest should be kept. Zero means keep all dice.
+     * Returns the number of dice to keep. Positive values means the highest should be kept; negative values means the lowest should be kept.
      * @return the number of dice to keep
      */
     public Integer getKeep();
+
+    /**
+     * @return whether or not the dice originally had a drop operation. This is only necessary for the purpose of converting the dice back to text.
+     */
+    public boolean isDrop();
 }

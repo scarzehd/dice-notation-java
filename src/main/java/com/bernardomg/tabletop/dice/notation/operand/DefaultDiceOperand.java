@@ -37,7 +37,17 @@ public final class DefaultDiceOperand implements DiceOperand {
 
     @Override
     public final String getExpression() {
-        return String.format("%dd%d", getDice().getQuantity(), getDice().getSides());
+        int keepDrop = dice.getKeep();
+
+        if (Math.abs(keepDrop) == dice.getQuantity()) {
+            return String.format("%dd%d", getDice().getQuantity(), getDice().getSides());
+        }
+
+        if (dice.isDrop()) {
+            keepDrop = (int)(Math.signum(keepDrop) * -(dice.getQuantity() - Math.abs(keepDrop)));
+        }
+
+        return String.format("%dd%d%s%s%d", getDice().getQuantity(), getDice().getSides(), dice.isDrop() ? "d" : "k", keepDrop < 0 ? "h" : "l", keepDrop);
     }
 
 }

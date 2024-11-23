@@ -80,7 +80,7 @@ public final class DefaultRollResult implements RollResult {
     public DefaultRollResult(@NonNull final Integer total) {
         super();
 
-        dice = new DefaultDice(1, total, 0); // TODO: this may need changing
+        dice = new DefaultDice(1, total, 0, false);
         totalRoll = Objects.requireNonNull(total, "Received a null pointer as total roll");
 
         allRolls = Arrays.asList(total);

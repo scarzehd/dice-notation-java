@@ -294,7 +294,7 @@ public final class DefaultDiceExpressionBuilder extends DiceNotationParserBaseLi
         }
 
         // Creates the dice
-        dice = new DefaultDice(quantity, sides, keep);
+        dice = new DefaultDice(quantity, sides, keep, false);
 
         return new DefaultDiceOperand(dice);
     }

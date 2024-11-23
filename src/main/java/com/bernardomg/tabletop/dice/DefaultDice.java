@@ -51,4 +51,7 @@ public final class DefaultDice implements Dice {
      */
     @NonNull
     private final Integer keep;
+
+    @NonNull
+    private final boolean isDrop;
 }
